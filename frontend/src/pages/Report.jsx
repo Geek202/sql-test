@@ -132,8 +132,8 @@ export default function Report() {
                 </table>
 
         </div>
-        <div className="bg-white shadow-md rounded-lg p-4"><h1>Employees</h1>
-                <table className="border border-separate">
+        <div className="bg-white shadow-md rounded-lg p-4 overflow-x-auto "><h1>Employees</h1>
+                <table className="border border-separate w-full">
                     <thead>
                         <tr>
                             <th className="border p-2">Employee ID</th>

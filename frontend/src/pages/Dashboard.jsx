@@ -7,7 +7,7 @@ import Report from "./Report";
 
 function Dashboard() {
     const navigate = useNavigate()
-    const [SwitchPage,SetSwitchPage]=useState("Report")
+    const [SwitchPage,SetSwitchPage]=useState("Users")
     const handleLogout=()=>{
         localStorage.removeItem('token')
         navigate('/')
@@ -29,14 +29,41 @@ const renderPage=()=>{
     else {
         return (
             <div className="flex flex-col">
-            <div className=" bg-blue-300 flex w-full gap-10 h-20 justify-center items-center">
-            <button className="bg-black hover:bg-gray-900 transition-colors ease-in-out text-white rounded min-w-30 h-10" onClick={()=>{SetSwitchPage("Employees")}}>Employees</button>
-            <button className="bg-black hover:bg-gray-900 transition-colors ease-in-out text-white rounded min-w-30 h-10" onClick={()=>{SetSwitchPage("Users")}}>Users</button>
-            <button className="bg-black hover:bg-gray-900 transition-colors ease-in-out text-white rounded min-w-30 h-10" onClick={()=>{SetSwitchPage("Report")}}>Reports</button>
-            <button className="bg-red-500 hover:bg-red-900 transition-colors ease-in-out text-black rounded min-w-30 h-10" onClick={handleLogout}>Logout</button>
-            
-            
-        </div>
+            <div className="bg-white shadow-md border-b w-full h-16 flex items-center justify-between px-6">
+
+    
+    <div className="flex gap-4">
+        <button
+            className="px-4 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-700 transition"
+            onClick={() => SetSwitchPage("Employees")}
+        >
+            Employees
+        </button>
+
+        <button
+            className="px-4 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-700 transition"
+            onClick={() => SetSwitchPage("Users")}
+        >
+            Users
+        </button>
+
+        <button
+            className="px-4 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-700 transition"
+            onClick={() => SetSwitchPage("Report")}
+        >
+            Reports
+        </button>
+    </div>
+
+    
+    <button
+        className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+        onClick={handleLogout}
+    >
+        Logout
+    </button>
+
+</div>
             <div>
                 {renderPage()}
             </div>

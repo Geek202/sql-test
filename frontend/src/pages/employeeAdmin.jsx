@@ -3,816 +3,816 @@ import axios from "axios";
 
 export default function EmployeePage() {
 
-const token =
-localStorage.getItem(
-"token"
-);
+    const token =
+        localStorage.getItem(
+            "token"
+        );
 
-const [employees,
-setEmployees] =
-useState([]);
+    const [employees,
+        setEmployees] =
+        useState([]);
 
-const [posts,
-setPosts] =
-useState([]);
+    const [posts,
+        setPosts] =
+        useState([]);
 
-const [isEditing,
-setIsEditing] =
-useState(false);
+    const [isEditing,
+        setIsEditing] =
+        useState(false);
 
-const initialForm = {
+    const initialForm = {
 
-EmployeeID:"",
+        EmployeeID: "",
 
-FirstName:"",
-LastName:"",
-Gender:"Male",
+        FirstName: "",
+        LastName: "",
+        Gender: "Male",
 
-DOB:"",
+        DOB: "",
 
-Position:"",
+        Position: "",
 
-Department:"",
+        Department: "",
 
-Email:"",
+        Email: "",
 
-PhoneNumber:"",
+        PhoneNumber: "",
 
-Address:"",
+        Address: "",
 
-Salary:"",
+        Salary: "",
 
-HireDate:"",
+        HireDate: "",
 
-Status:""
+        Status: ""
 
-};
+    };
 
-const [formData,
-setFormData] =
-useState(
-initialForm
-);
+    const [formData,
+        setFormData] =
+        useState(
+            initialForm
+        );
 
 
-useEffect(()=>{
+    useEffect(() => {
 
-getEmployees();
-getPosts();
+        getEmployees();
+        getPosts();
 
-},[]);
+    }, []);
 
 
-const getEmployees =
-async()=>{
+    const getEmployees =
+        async () => {
 
-try{
+            try {
 
-const res =
-await axios.get(
+                const res =
+                    await axios.get(
 
-"http://localhost:3001/employees",
+                        "http://localhost:3001/employees",
 
-{
-headers:{
-Authorization:
-`Bearer ${token}`
-}
-}
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ${token}`
+                            }
+                        }
 
-);
+                    );
 
-setEmployees(
-res.data.results
-);
+                setEmployees(
+                    res.data.results
+                );
 
-}catch(err){
+            } catch (err) {
 
-console.log(err);
+                console.log(err);
 
-}
+            }
 
-};
+        };
 
 
-const getPosts =
-async()=>{
+    const getPosts =
+        async () => {
 
-try{
+            try {
 
-const res =
-await axios.get(
-"http://localhost:3001/post"
-);
+                const res =
+                    await axios.get(
+                        "http://localhost:3001/post"
+                    );
 
-setPosts(
-res.data.results
-);
+                setPosts(
+                    res.data.results
+                );
 
-}catch(err){
+            } catch (err) {
 
-console.log(err);
+                console.log(err);
 
-}
+            }
 
-};
+        };
 
 
-const handleChange =
-(e)=>{
+    const handleChange =
+        (e) => {
 
-setFormData({
+            setFormData({
 
-...formData,
+                ...formData,
 
-[e.target.name]:
-e.target.value
+                [e.target.name]:
+                    e.target.value
 
-});
+            });
 
-};
+        };
 
 
-const handleSubmit =
-async(e)=>{
+    const handleSubmit =
+        async (e) => {
 
-e.preventDefault();
+            e.preventDefault();
 
-try{
+            try {
 
-await axios.post(
+                await axios.post(
 
-"http://localhost:3001/employees",
+                    "http://localhost:3001/employees",
 
-formData,
+                    formData,
 
-{
-headers:{
-Authorization:
-`Bearer ${token}`
-}
-}
+                    {
+                        headers: {
+                            Authorization:
+                                `Bearer ${token}`
+                        }
+                    }
 
-);
+                );
 
-getEmployees();
+                getEmployees();
 
-setFormData(
-initialForm
-);
+                setFormData(
+                    initialForm
+                );
 
-}catch(err){
+            } catch (err) {
 
-console.log(err);
+                console.log(err);
 
-}
+            }
 
-};
+        };
 
 
-const handleEdit =
-(emp)=>{
+    const handleEdit =
+        (emp) => {
 
-setIsEditing(true);
+            setIsEditing(true);
 
-setFormData({
+            setFormData({
 
-EmployeeID:
-emp.EmployeeID,
+                EmployeeID:
+                    emp.EmployeeID,
 
-FirstName:
-emp.FirstName,
+                FirstName:
+                    emp.FirstName,
 
-LastName:
-emp.LastName,
+                LastName:
+                    emp.LastName,
 
-Gender:
-emp.Gender,
+                Gender:
+                    emp.Gender,
 
-DOB:
-emp.DOB
-? emp.DOB.split("T")[0]
-: "",
+                DOB:
+                    emp.DOB
+                        ? emp.DOB.split("T")[0]
+                        : "",
 
-Position:
-emp.Position,
+                Position:
+                    emp.Position,
 
-Department:
-emp.Department,
+                Department:
+                    emp.Department,
 
-Email:
-emp.Email,
+                Email:
+                    emp.Email,
 
-PhoneNumber:
-emp.PhoneNumber,
+                PhoneNumber:
+                    emp.PhoneNumber,
 
-Address:
-emp.Address,
+                Address:
+                    emp.Address,
 
-Salary:
-emp.Salary,
+                Salary:
+                    emp.Salary,
 
-HireDate:
-emp.HireDate
-? emp.HireDate.split("T")[0]
-: "",
+                HireDate:
+                    emp.HireDate
+                        ? emp.HireDate.split("T")[0]
+                        : "",
 
-Status:
-emp.Status
+                Status:
+                    emp.Status
 
-});
+            });
 
-};
+        };
 
 
-const handleUpdate =
-async()=>{
+    const handleUpdate =
+        async () => {
 
-try{
+            try {
 
-await axios.put(
+                await axios.put(
 
-`http://localhost:3001/employees/${formData.EmployeeID}`,
+                    `http://localhost:3001/employees/${formData.EmployeeID}`,
 
-formData,
+                    formData,
 
-{
-headers:{
-Authorization:
-`Bearer ${token}`
-}
-}
+                    {
+                        headers: {
+                            Authorization:
+                                `Bearer ${token}`
+                        }
+                    }
 
-);
+                );
 
-setIsEditing(
-false
-);
+                setIsEditing(
+                    false
+                );
 
-setFormData(
-initialForm
-);
+                setFormData(
+                    initialForm
+                );
 
-getEmployees();
+                getEmployees();
 
-}catch(err){
+            } catch (err) {
 
-console.log(err);
+                console.log(err);
 
-}
+            }
 
-};
+        };
 
 
-const handleDelete =
-async(id)=>{
+    const handleDelete =
+        async (id) => {
 
-const confirmDelete=
-window.confirm(
-"Delete employee?"
-);
+            const confirmDelete =
+                window.confirm(
+                    "Delete employee?"
+                );
 
-if(!confirmDelete)
-return;
+            if (!confirmDelete)
+                return;
 
-try{
+            try {
 
-await axios.delete(
+                await axios.delete(
 
-`http://localhost:3001/employees/${id}`,
+                    `http://localhost:3001/employees/${id}`,
 
-{
-headers:{
-Authorization:
-`Bearer ${token}`
-}
-}
+                    {
+                        headers: {
+                            Authorization:
+                                `Bearer ${token}`
+                        }
+                    }
 
-);
+                );
 
-getEmployees();
+                getEmployees();
 
-}catch(err){
+            } catch (err) {
 
-console.log(err);
+                console.log(err);
 
-}
+            }
 
-};
+        };
 
 
-const handleCancel =
-()=>{
+    const handleCancel =
+        () => {
 
-setIsEditing(
-false
-);
+            setIsEditing(
+                false
+            );
 
-setFormData(
-initialForm
-);
+            setFormData(
+                initialForm
+            );
 
-};
+        };
 
 
-return(
+    return (
 
-<div className=
-"min-h-screen bg-gray-100 p-8">
+        <div className=
+            "min-h-screen bg-gray-100 p-8">
 
-<div className=
-"bg-white rounded-xl shadow p-6">
+            <div className=
+                "bg-white rounded-xl shadow p-6">
 
-<h1 className=
-"text-2xl font-bold mb-6">
+                <h1 className=
+                    "text-2xl font-bold mb-6">
 
-Employee Management
+                    Employee Management
 
-</h1>
+                </h1>
 
 
-<form
+                <form
 
-onSubmit=
-{handleSubmit}
+                    onSubmit=
+                    {handleSubmit}
 
-className="
+                    className="
 grid
 grid-cols-1
 md:grid-cols-2
 lg:grid-cols-3
 gap-4"
 
->
+                >
 
 
-<input
-name="FirstName"
-placeholder="First Name"
-value={formData.FirstName}
-onChange={handleChange}
-className="
+                    <input
+                        name="FirstName"
+                        placeholder="First Name"
+                        value={formData.FirstName}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<input
-name="LastName"
-placeholder="Last Name"
-value={formData.LastName}
-onChange={handleChange}
-className="
+                    <input
+                        name="LastName"
+                        placeholder="Last Name"
+                        value={formData.LastName}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<select
+                    <select
 
-name="Gender"
+                        name="Gender"
 
-value={formData.Gender}
+                        value={formData.Gender}
 
-onChange=
-{handleChange}
+                        onChange=
+                        {handleChange}
 
-className="
+                        className="
 border p-3 rounded"
 
->
+                    >
 
-<option value="Male">
-Male
-</option>
+                        <option value="Male">
+                            Male
+                        </option>
 
-<option value="Female">
-Female
-</option>
+                        <option value="Female">
+                            Female
+                        </option>
 
-</select>
+                    </select>
 
 
-<div className="flex flex-col">
-<label className="
+                    <div className="flex flex-col">
+                        <label className="
 text-sm
 font-medium
 mb-1
 text-gray-700">
 
-Date of Birth
+                            Date of Birth
 
-</label>
+                        </label>
 
-<input
-type="date"
-name="DOB"
-value={formData.DOB}
-onChange={handleChange}
-className="
+                        <input
+                            type="date"
+                            name="DOB"
+                            value={formData.DOB}
+                            onChange={handleChange}
+                            className="
 border
 p-3
 rounded"
-/>
+                        />
 
-</div>
+                    </div>
 
 
-<select
+                    <select
 
-name="Position"
+                        name="Position"
 
-value=
-{formData.Position}
+                        value=
+                        {formData.Position}
 
-onChange=
-{handleChange}
+                        onChange=
+                        {handleChange}
 
-className="
+                        className="
 border p-3 rounded"
 
->
+                    >
 
-<option value="">
-Select Position
-</option>
+                        <option value="">
+                            Select Position
+                        </option>
 
-{
-(posts||[])
-.map(
-(post)=>(
+                        {
+                            (posts || [])
+                                .map(
+                                    (post) => (
 
-<option
+                                        <option
 
-key=
-{post.PostID}
+                                            key=
+                                            {post.PostID}
 
-value=
-{post.postName}
+                                            value=
+                                            {post.postName}
 
->
+                                        >
 
-{post.postName}
+                                            {post.postName}
 
-</option>
+                                        </option>
 
-))
-}
+                                    ))
+                        }
 
-</select>
+                    </select>
 
 
-<input
-name="Department"
-placeholder="Department"
-value={formData.Department}
-onChange={handleChange}
-className="
+                    <input
+                        name="Department"
+                        placeholder="Department"
+                        value={formData.Department}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<input
-type="email"
-name="Email"
-placeholder="Email"
-value={formData.Email}
-onChange={handleChange}
-className="
+                    <input
+                        type="email"
+                        name="Email"
+                        placeholder="Email"
+                        value={formData.Email}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<input
-name="PhoneNumber"
-placeholder="Phone Number"
-value={formData.PhoneNumber}
-onChange={handleChange}
-className="
+                    <input
+                        name="PhoneNumber"
+                        placeholder="Phone Number"
+                        value={formData.PhoneNumber}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<input
-name="Address"
-placeholder="Address"
-value={formData.Address}
-onChange={handleChange}
-className="
+                    <input
+                        name="Address"
+                        placeholder="Address"
+                        value={formData.Address}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<input
-type="number"
-name="Salary"
-placeholder="Salary"
-value={formData.Salary}
-onChange={handleChange}
-className="
+                    <input
+                        type="number"
+                        name="Salary"
+                        placeholder="Salary"
+                        value={formData.Salary}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
-/>
+                    />
 
 
-<div className="flex flex-col">
+                    <div className="flex flex-col">
 
-<label className="
+                        <label className="
 text-sm
 font-medium
 mb-1
 text-gray-700">
 
-Hire Date
+                            Hire Date
 
-</label>
+                        </label>
 
-<input
-type="date"
-name="HireDate"
-value={formData.HireDate}
-onChange={handleChange}
-className="
+                        <input
+                            type="date"
+                            name="HireDate"
+                            value={formData.HireDate}
+                            onChange={handleChange}
+                            className="
 border
 p-3
 rounded"
-/>
+                        />
 
-</div>
+                    </div>
 
 
-<select
-name="Status"
-value={formData.Status}
-onChange={handleChange}
-className="
+                    <select
+                        name="Status"
+                        value={formData.Status}
+                        onChange={handleChange}
+                        className="
 border p-3 rounded"
->
+                    >
 
-<option value="">
-Select Status
-</option>
+                        <option value="">
+                            Select Status
+                        </option>
 
-<option value="Active">
-Active
-</option>
+                        <option value="Active">
+                            Active
+                        </option>
 
-<option value="Inactive">
-Inactive
-</option>
+                        <option value="Inactive">
+                            Inactive
+                        </option>
 
-<option value="On Leave">
-On Leave
-</option>
+                        <option value="On Leave">
+                            On Leave
+                        </option>
 
-</select>
+                    </select>
 
 
-<div className="
+                    <div className="
 col-span-full
 flex gap-3 mt-4">
 
-{
-!isEditing ? (
+                        {
+                            !isEditing ? (
 
-<button
-type="submit"
+                                <button
+                                    type="submit"
 
-className="
+                                    className="
 bg-blue-600
 text-white
 px-5 py-2
 rounded"
 
->
+                                >
 
-Add Employee
+                                    Add Employee
 
-</button>
+                                </button>
 
-):(
+                            ) : (
 
-<>
+                                <>
 
-<button
+                                    <button
 
-type="button"
+                                        type="button"
 
-onClick=
-{handleUpdate}
+                                        onClick=
+                                        {handleUpdate}
 
-className="
+                                        className="
 bg-green-600
 text-white
 px-5 py-2
 rounded"
 
->
+                                    >
 
-Save Changes
+                                        Save Changes
 
-</button>
+                                    </button>
 
 
-<button
+                                    <button
 
-type="button"
+                                        type="button"
 
-onClick=
-{handleCancel}
+                                        onClick=
+                                        {handleCancel}
 
-className="
+                                        className="
 bg-gray-500
 text-white
 px-5 py-2
 rounded"
 
->
+                                    >
 
-Cancel
+                                        Cancel
 
-</button>
+                                    </button>
 
-</>
+                                </>
 
-)
+                            )
 
-}
+                        }
 
-</div>
+                    </div>
 
-</form>
+                </form>
 
-</div>
+            </div>
 
 
 
-<div className="
+            <div className="
 bg-white
 rounded-xl
 shadow
 mt-8
 overflow-x-auto">
 
-<table className=
-"w-full">
+                <table className=
+                    "w-full">
 
-<thead>
+                    <thead>
 
-<tr className=
-"bg-gray-100">
+                        <tr className=
+                            "bg-gray-100">
 
-<th className="p-4">
-ID
-</th>
+                            <th className="p-4">
+                                ID
+                            </th>
 
-<th className="p-4">
-Employee
-</th>
+                            <th className="p-4">
+                                Employee
+                            </th>
 
-<th className="p-4">
-Position
-</th>
+                            <th className="p-4">
+                                Position
+                            </th>
 
-<th className="p-4">
-Department
-</th>
+                            <th className="p-4">
+                                Department
+                            </th>
 
-<th className="p-4">
-Email
-</th>
+                            <th className="p-4">
+                                Email
+                            </th>
 
-<th className="p-4">
-Actions
-</th>
+                            <th className="p-4">
+                                Actions
+                            </th>
 
-</tr>
+                        </tr>
 
-</thead>
-
-
-<tbody>
-
-{
-employees.map(
-(emp)=>(
-
-<tr
-
-key=
-{emp.EmployeeID}
-
-className=
-"border-b text-center"
-
->
-
-<td className="p-4">
-
-{
-emp.EmployeeID
-}
-
-</td>
+                    </thead>
 
 
-<td className="p-4">
+                    <tbody>
 
-{
-emp.FirstName
-}
+                        {
+                            employees.map(
+                                (emp) => (
 
-{" "}
+                                    <tr
 
-{
-emp.LastName
-}
+                                        key=
+                                        {emp.EmployeeID}
 
-</td>
+                                        className=
+                                        "border-b text-center"
 
+                                    >
 
-<td className="p-4">
+                                        <td className="p-4">
 
-{
-emp.Position
-}
+                                            {
+                                                emp.EmployeeID
+                                            }
 
-</td>
-
-
-<td className="p-4">
-
-{
-emp.Department
-}
-
-</td>
+                                        </td>
 
 
-<td className="p-4">
+                                        <td className="p-4">
 
-{
-emp.Email
-}
+                                            {
+                                                emp.FirstName
+                                            }
 
-</td>
+                                            {" "}
+
+                                            {
+                                                emp.LastName
+                                            }
+
+                                        </td>
 
 
-<td className=
-"space-x-2 p-4">
+                                        <td className="p-4">
 
-<button
+                                            {
+                                                emp.Position
+                                            }
 
-onClick={()=>
-handleEdit(
-emp
-)
-}
+                                        </td>
 
-className="
+
+                                        <td className="p-4">
+
+                                            {
+                                                emp.Department
+                                            }
+
+                                        </td>
+
+
+                                        <td className="p-4">
+
+                                            {
+                                                emp.Email
+                                            }
+
+                                        </td>
+
+
+                                        <td className=
+                                            "space-x-2 p-4">
+
+                                            <button
+
+                                                onClick={() =>
+                                                    handleEdit(
+                                                        emp
+                                                    )
+                                                }
+
+                                                className="
 bg-yellow-400
 px-3 py-1
 rounded"
 
->
+                                            >
 
-Edit
+                                                Edit
 
-</button>
+                                            </button>
 
 
-<button
+                                            <button
 
-onClick={()=>
-handleDelete(
-emp.EmployeeID
-)
-}
+                                                onClick={() =>
+                                                    handleDelete(
+                                                        emp.EmployeeID
+                                                    )
+                                                }
 
-className="
+                                                className="
 bg-red-500
 text-white
 px-3 py-1
 rounded"
 
->
+                                            >
 
-Delete
+                                                Delete
 
-</button>
+                                            </button>
 
-</td>
+                                        </td>
 
-</tr>
+                                    </tr>
 
-))
-}
+                                ))
+                        }
 
-</tbody>
+                    </tbody>
 
-</table>
+                </table>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-);
+    );
 
 }
