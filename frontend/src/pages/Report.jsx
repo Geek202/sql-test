@@ -1,40 +1,47 @@
 import axios from "axios"
-import { useEffect,useState } from "react"
-export default function Report(){
-    const[data,SetData]=useState([])
-    const token= localStorage.getItem('token')
-    const getEmployees=async(e)=>{
-        e.preventDefault()
-        try{
-            const res= await axios.get('http://localhost:3001/employees',{
-                headers:{
-                    "Authorization":`Bearer ${token}`
+import { useState } from "react"
 
-                }}
-            )
-            SetData(res.data)
+export default function Report() {
+    const [data,setData]=useState([])
+    const [error,setError]=useState("")
+    const GetUsers=async()=>{
+        try{
+            const res= await axios.get()
+
         }catch(err){
-            window.alert(err)
+            setError(err)
         }
     }
-    useEffect(()=>{
-        getEmployees()
-    },[])
-    return(
-<>
-<table>
-<th>Name</th>
+    return (
+        <>
+            <table className="border border-collapse">
+                <thead>
+                    <tr>
+                        <th className="border p-2">Name</th>
+                        <th className="border p-2">UserID</th>
+                    </tr>
+                </thead>
 
-{data.map((datas)=>(
-<tr>
-    <td>
-        {datas.FirstName}
-        </td></tr>
-))}
-</table>
-</>
+                <tbody>
 
+                    {data.length===0?
+                    <tr>
+                        <td>No data to display</td>
+                    </tr>
+                    :
+                    data.map((datas) => (
+                        <tr key={datas.id}>
+                            <td className="border p-2">
+                                {datas.name}
+                            </td>
 
-
+                            <td className="border p-2">
+                                {datas.id}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </>
     )
 }

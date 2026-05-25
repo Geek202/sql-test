@@ -83,3 +83,15 @@ exports.register = async (req, res) => {
         return res.status(500).json({ message: `Internal server error: ${err.message || err}` });
     }
 };
+exports.getUsers= async(req,res)=>{
+  try{
+    const qeury="SELECT * FROM Users"
+    connectDB.query(qeury,(err,results)=>{
+      if(err)return res.status(400).json({message:`error retrieving users ${err.message||err}`})
+      return res.status(200).json({message:"Retrieved Users",results})
+
+    })
+  }catch(err){
+    return res.status(500).json({message:`Server error :${err.message||err}`})
+  }
+}

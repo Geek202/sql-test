@@ -6,7 +6,7 @@ import Report from "./Report";
 
 
 function Dashboard() {
-    const [SwitchPage,SetSwitchPage]=useState("Employees")
+    const [SwitchPage,SetSwitchPage]=useState("Report")
 
 
 const renderPage=()=>{
