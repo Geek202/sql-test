@@ -48,7 +48,6 @@ const res = await axios.post(
 "http://localhost:3001/auth/login",
 formData
 );
-console.log(res.data)
 
 if(res.data.success===true){
 
