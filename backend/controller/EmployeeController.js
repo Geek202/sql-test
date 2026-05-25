@@ -313,7 +313,7 @@ err.message
 };
 
 
-// DELETE
+
 exports.deletes = async(req,res)=>{
 
 const { EmployeeID } =
@@ -347,9 +347,8 @@ message:
 };
 
 
-// GET
-exports.getEmployees =
-async(req,res)=>{
+
+exports.getEmployees = async(req,res)=>{
 
 const query = `
 SELECT *

@@ -6,8 +6,12 @@ import Report from "./Report";
 
 
 function Dashboard() {
+    const navigate = useNavigate()
     const [SwitchPage,SetSwitchPage]=useState("Report")
-
+    const handleLogout=()=>{
+        localStorage.removeItem('token')
+        navigate('/')
+    }
 
 const renderPage=()=>{
     switch(SwitchPage){
@@ -19,7 +23,7 @@ const renderPage=()=>{
             return <Report/>
     } 
 }
-    const navigate = useNavigate()
+    
     const token = localStorage.getItem('token')
     if (!token) { navigate('/') }
     else {
@@ -29,7 +33,7 @@ const renderPage=()=>{
             <button className="bg-black hover:bg-gray-900 transition-colors ease-in-out text-white rounded min-w-30 h-10" onClick={()=>{SetSwitchPage("Employees")}}>Employees</button>
             <button className="bg-black hover:bg-gray-900 transition-colors ease-in-out text-white rounded min-w-30 h-10" onClick={()=>{SetSwitchPage("Users")}}>Users</button>
             <button className="bg-black hover:bg-gray-900 transition-colors ease-in-out text-white rounded min-w-30 h-10" onClick={()=>{SetSwitchPage("Report")}}>Reports</button>
-            <button className="bg-red-500 hover:bg-red-900 transition-colors ease-in-out text-black rounded min-w-30 h-10">Logout</button>
+            <button className="bg-red-500 hover:bg-red-900 transition-colors ease-in-out text-black rounded min-w-30 h-10" onClick={handleLogout}>Logout</button>
             
             
         </div>
