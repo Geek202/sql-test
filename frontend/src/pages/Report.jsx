@@ -59,171 +59,375 @@ export default function Report() {
         GetEmployees()
     }, [])
     return (
-        <div className="p-6 space-y-10 bg-gray-50 min-h-screen">
-        <div className="bg-white shadow-md rounded-lg p-4"><h1>Users</h1>
-            <table className="border border-collapse">
-                <thead>
-                    <tr>
-                        <th className="border p-2">Name</th>
-                        <th className="border p-2">User ID</th>
-                        <th className="border p-2"> Employee ID</th>
-                    </tr>
-                </thead>
+    <div className="min-h-screen bg-gray-100 p-8">
 
-                <tbody>
-                    {Userdata.length < 1 ? (
-                        <tr>
-                            <td colSpan="2">No data to display</td>
-                        </tr>
-                    ) : (
-                        Userdata.map((datas) => (
-                            <tr key={datas.UserID}>
-                                <td className="border p-2">
-                                    {datas.Username}
-                                </td>
+    
 
-                                <td className="border p-2">
-                                    {datas.UserID}
-                                </td>
-                                <td className="border p-2">
-                                    {datas.EmployeeId}
+        <div className="mb-8">
+            <h1 className="text-4xl font-bold text-gray-800">
+                Reports Dashboard
+            </h1>
 
-                                </td>
+            <p className="text-gray-500 mt-2">
+                Users, Posts and Employees Overview
+            </p>
+        </div>
 
-                            </tr>
-                        ))
-                    )}
+        
 
-                </tbody></table>
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+
+            <div className="bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
+                <h2 className="text-lg">Users</h2>
+                <p className="text-3xl font-bold mt-2">
+                    {Userdata.length}
+                </p>
+            </div>
+
+            <div className="bg-linear-to-r from-green-500 to-green-600 text-white rounded-xl p-6 shadow-lg">
+                <h2 className="text-lg">Posts</h2>
+                <p className="text-3xl font-bold mt-2">
+                    {PostData.length}
+                </p>
+            </div>
+
+            <div className="bg-linear-to-r from-purple-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
+                <h2 className="text-lg">Employees</h2>
+                <p className="text-3xl font-bold mt-2">
+                    {EmployeeData.length}
+                </p>
+            </div>
 
         </div>
-        <div className="bg-white shadow-md rounded-lg p-4"><h1>Posts</h1>
-                <table className="border border-collapse">
+
+        
+
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+
+            <h2 className="text-2xl font-bold mb-4">
+                Users
+            </h2>
+
+            <div className="overflow-x-auto">
+
+                <table className="w-full">
+
                     <thead>
-                        <tr>
-                            <th className="border p-2">Post Id</th>
-                            <th className="border p-2">Post Name</th>
+
+                        <tr className="bg-gray-100">
+
+                            <th className="p-4 text-left">
+                                Username
+                            </th>
+
+                            <th className="p-4 text-left">
+                                User ID
+                            </th>
+
+                            <th className="p-4 text-left">
+                                Employee ID
+                            </th>
 
                         </tr>
+
                     </thead>
 
                     <tbody>
-                        {PostData.length < 1 ? (
+
+                        {Userdata.length < 1 ? (
+
                             <tr>
-                                <td colSpan="2">No data to display</td>
+                                <td
+                                    colSpan="3"
+                                    className="p-4 text-center"
+                                >
+                                    No users found
+                                </td>
                             </tr>
+
                         ) : (
+
+                            Userdata.map((datas) => (
+
+                                <tr
+                                    key={datas.UserID}
+                                    className="border-b hover:bg-gray-50"
+                                >
+
+                                    <td className="p-4">
+                                        {datas.Username}
+                                    </td>
+
+                                    <td className="p-4">
+                                        {datas.UserID}
+                                    </td>
+
+                                    <td className="p-4">
+                                        {datas.EmployeeId}
+                                    </td>
+
+                                </tr>
+
+                            ))
+
+                        )}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        
+
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+
+            <h2 className="text-2xl font-bold mb-4">
+                Posts
+            </h2>
+
+            <div className="overflow-x-auto">
+
+                <table className="w-full">
+
+                    <thead>
+
+                        <tr className="bg-gray-100">
+
+                            <th className="p-4 text-left">
+                                Post ID
+                            </th>
+
+                            <th className="p-4 text-left">
+                                Post Name
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {PostData.length < 1 ? (
+
+                            <tr>
+                                <td
+                                    colSpan="2"
+                                    className="text-center p-4"
+                                >
+                                    No posts found
+                                </td>
+                            </tr>
+
+                        ) : (
+
                             PostData.map((datas) => (
-                                <tr key={datas.postId}>
-                                    <td className="border p-2">
+
+                                <tr
+                                    key={datas.postId}
+                                    className="border-b hover:bg-gray-50"
+                                >
+
+                                    <td className="p-4">
                                         {datas.postId}
                                     </td>
 
-                                    <td className="border p-2">
+                                    <td className="p-4">
                                         {datas.postName}
                                     </td>
 
-
                                 </tr>
+
                             ))
+
                         )}
 
                     </tbody>
+
                 </table>
 
+            </div>
+
         </div>
-        <div className="bg-white shadow-md rounded-lg p-4 overflow-x-auto "><h1>Employees</h1>
-                <table className="border border-separate w-full">
+
+        
+
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+
+            <h2 className="text-2xl font-bold mb-4">
+                Employees
+            </h2>
+
+            <div className="overflow-x-auto">
+
+                <table className="min-w-full">
+
                     <thead>
-                        <tr>
-                            <th className="border p-2">Employee ID</th>
-                            <th className="border p-2">Post ID</th>
-                            <th className="border p-2">Full Names</th>
-                           
-                            <th className="border p-2">Gender</th>
-                            <th className="border p-2"> Date of Birth</th>
-                            <th className="border p-2">Position</th>
-                            <th className="border p-2">Department</th>
-                            <th className="border p-2">Email</th>
-                            <th className="border p-2">Phone Number</th>
-                            <th className="border p-2">Address</th>
-                            <th className="border p-2">Salary</th>
-                            <th className="border p-2">Hire Date</th>
-                            <th className="border p-2">Status</th>
-                            
-                            
+
+                        <tr className="bg-gray-100 text-sm">
+
+                            <th className="p-3">
+                                Employee ID
+                            </th>
+
+                            <th className="p-3">
+                                Post ID
+                            </th>
+
+                            <th className="p-3">
+                                Full Name
+                            </th>
+
+                            <th className="p-3">
+                                Gender
+                            </th>
+
+                            <th className="p-3">
+                                DOB
+                            </th>
+
+                            <th className="p-3">
+                                Position
+                            </th>
+
+                            <th className="p-3">
+                                Department
+                            </th>
+
+                            <th className="p-3">
+                                Email
+                            </th>
+
+                            <th className="p-3">
+                                Phone
+                            </th>
+
+                            <th className="p-3">
+                                Address
+                            </th>
+
+                            <th className="p-3">
+                                Salary
+                            </th>
+
+                            <th className="p-3">
+                                Hire Date
+                            </th>
+
+                            <th className="p-3">
+                                Status
+                            </th>
 
                         </tr>
+
                     </thead>
 
                     <tbody>
-                        {EmployeeData.length < 1 ? (
-                            <tr>
-                                <td colSpan="2">No data to display</td>
-                            </tr>
-                        ) : (
-                            EmployeeData.map((datas) => (
-                                <tr key={datas.postId}>
-                                    <td className="border p-2">
-                                        {datas.EmployeeID}
-                                    </td>
 
-                                    <td className="border p-2">
-                                        {datas.PostID}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.FirstName +" "+ datas.LastName}
-                                    </td>
-                                    
-                                    <td className="border p-2">
-                                        {datas.Gender}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.DOB}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.Position}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.Department}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.Email}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.PhoneNumber}
-                                    </td>
-                                    <td className="border p-2">
-                                        {datas.Address}
-                                    </td>
-                                    <td className="border p-2">
-                                        frw {datas.Salary}
-                                    </td>
-                                    <td className="border p-2">
-                                        {new Date(datas.HireDate).toDateString()}
-                                    </td>
-                                    <td className={ datas.Status==="Active"?("border p-2 text-green-500"):("border p-2 text-red-500")}>
+                        {EmployeeData.map((datas) => (
+
+                            <tr
+                                key={datas.EmployeeID}
+                                className="border-b hover:bg-gray-50 text-sm"
+                            >
+
+                                <td className="p-3">
+                                    {datas.EmployeeID}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.PostID}
+                                </td>
+
+                                <td className="p-3 font-medium">
+                                    {datas.FirstName}
+                                    {" "}
+                                    {datas.LastName}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.Gender}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.DOB}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.Position}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.Department}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.Email}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.PhoneNumber}
+                                </td>
+
+                                <td className="p-3">
+                                    {datas.Address}
+                                </td>
+
+                                <td className="p-3 font-semibold text-green-600">
+                                    FRW {datas.Salary}
+                                </td>
+
+                                <td className="p-3">
+                                    {
+                                        new Date(
+                                            datas.HireDate
+                                        ).toDateString()
+                                    }
+                                </td>
+
+                                <td className="p-3">
+
+                                    <span
+                                        className={
+                                            datas.Status ===
+                                            "Active"
+
+                                            ?
+
+                                            "px-3 py-1 rounded-full bg-green-100 text-green-700"
+
+                                            :
+
+                                            "px-3 py-1 rounded-full bg-red-100 text-red-700"
+                                        }
+                                    >
                                         {datas.Status}
-                                    </td>
-                                    
+                                    </span>
 
+                                </td>
 
-                                </tr>
-                            ))
-                        )}
+                            </tr>
+
+                        ))}
 
                     </tbody>
+
                 </table>
 
-        </div>
-        
-
-
-            <p>{error}</p>
-
-
-
+            </div>
 
         </div>
-    )
+
+        {error && (
+
+            <div className="mt-6 bg-red-100 text-red-600 p-4 rounded-lg">
+                {error}
+            </div>
+
+        )}
+
+    </div>
+)
 }

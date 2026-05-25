@@ -3,11 +3,12 @@ import EmployeePage from "./employeeAdmin";
 import { useNavigate } from "react-router-dom";
 import Users from "./User";
 import Report from "./Report";
+import Post from "./Post";
 
 
 function Dashboard() {
     const navigate = useNavigate()
-    const [SwitchPage,SetSwitchPage]=useState("Users")
+    const [SwitchPage,SetSwitchPage]=useState("Post")
     const handleLogout=()=>{
         localStorage.removeItem('token')
         navigate('/')
@@ -21,6 +22,8 @@ const renderPage=()=>{
             return <Users/>
         case "Report":
             return <Report/>
+        case "Post":
+            return <Post/>
     } 
 }
     
@@ -52,6 +55,12 @@ const renderPage=()=>{
             onClick={() => SetSwitchPage("Report")}
         >
             Reports
+        </button>
+        <button
+            className="px-4 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-700 transition"
+            onClick={() => SetSwitchPage("Post")}
+        >
+            Posts
         </button>
     </div>
 
