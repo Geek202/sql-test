@@ -102,7 +102,11 @@ export default function EmployeePage() {
 
                 const res =
                     await axios.get(
-                        "http://localhost:3001/post"
+                        "http://localhost:3001/post",{
+                            headers:{
+                                "Authorization":`Bearer ${token}`
+                            }
+                        }
                     );
 
                 setPosts(
